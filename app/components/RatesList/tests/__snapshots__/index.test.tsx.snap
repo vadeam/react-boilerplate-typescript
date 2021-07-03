@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RatesList /> should render the currencies rates if loading was successful 1`] = `
+<div
+  class="sc-gsTEea kgaQvI"
+>
+  <ul
+    class="sc-bdfBQB NAKmS"
+  >
+    <li
+      class="sc-hKgJUU ggufoM"
+    >
+      <div
+        class="sc-dlfnuX bBDutN"
+      >
+        <div
+          class="sc-eCstlR hzQvYN currency-rate"
+        >
+          AUD
+          :  
+          1.3444
+        </div>
+      </div>
+    </li>
+    <li
+      class="sc-hKgJUU ggufoM"
+    >
+      <div
+        class="sc-dlfnuX bBDutN"
+      >
+        <div
+          class="sc-eCstlR hzQvYN currency-rate"
+        >
+          BGN
+          :  
+          1.6474
+        </div>
+      </div>
+    </li>
+    <li
+      class="sc-hKgJUU ggufoM"
+    >
+      <div
+        class="sc-dlfnuX bBDutN"
+      >
+        <div
+          class="sc-eCstlR hzQvYN currency-rate"
+        >
+          BRL
+          :  
+          5.1616
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+`;

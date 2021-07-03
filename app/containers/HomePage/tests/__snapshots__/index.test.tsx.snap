@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<HomePage /> should render and match the snapshot 1`] = `
+<article>
+  <div>
+    <section
+      class="sc-fodVek dFSQJJ"
+    >
+      <h2
+        class="sc-bdfBQB kLvRhA"
+      >
+        Start your next react project in seconds (default message)
+      </h2>
+      <p>
+        A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices
+      </p>
+    </section>
+    <div
+      class="sc-idOiZg cBOtdo"
+    >
+      <section
+        class="sc-hBEYId leeACc"
+        width="70%"
+      >
+        <h2
+          class="sc-bdfBQB kLvRhA"
+        >
+          Try me!
+        </h2>
+        <form
+          class="sc-kstqJO jwOIbV"
+        >
+          <label
+            for="username"
+          >
+            Show Github repositories by
+            <span
+              class="sc-bkzYnD dNJVYT"
+            >
+              @
+            </span>
+            <input
+              class="sc-bqyKOL liPWEW"
+              id="username"
+              placeholder="mxstbr"
+              type="text"
+              value=""
+            />
+          </label>
+        </form>
+        <div
+          class="sc-dlfnuX eGAevg"
+        >
+          <div
+            class="sc-iqHYmW hludHu"
+          >
+            Type user name in the input above and press Enter
+          </div>
+        </div>
+      </section>
+      <section
+        class="sc-hBEYId cJrenY"
+        width="30%"
+      >
+        <h2
+          class="sc-bdfBQB kLvRhA"
+        >
+          Frankfurter Rates
+        </h2>
+        <section
+          class="sc-fodVek sc-fFucqa dFSQJJ fcDXsL"
+        >
+          <span
+            class="sc-dIUeWJ jQTZJR"
+          >
+            Base currency
+            :   
+          </span>
+          <select
+            class="sc-dQoVA fqgiHE"
+          />
+        </section>
+      </section>
+    </div>
+  </div>
+</article>
+`;
