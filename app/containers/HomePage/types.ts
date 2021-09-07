@@ -1,18 +1,24 @@
-import { ActionType } from 'typesafe-actions'
-import * as actions from './actions'
+import { Record } from 'immutable'
 
-/* --- STATE --- */
+export interface HomeActionTypes {
+  CHANGE_USERNAME: string
+}
 
-interface HomeState {
+export interface HomeAction extends Action<HomeActionTypes> {
   readonly username: string
 }
 
-/* --- ACTIONS --- */
-type AppActions = ActionType<typeof actions>
+export interface HomeActionCreators {
+  changeUsername: (username: string) => HomeAction
+}
 
-/* --- EXPORTS --- */
+export interface HomeState extends InheritedReducerState {
+  readonly username: string
+}
 
-type ContainerState = HomeState
-type ContainerActions = AppActions
-
-export { ContainerState, ContainerActions }
+export const HomeStateRecord = Record<HomeState>(
+  {
+    username: '',
+  },
+  'HomeStateRecord',
+)

@@ -1,17 +1,19 @@
-import { selectLanguage } from '../selectors'
-import { initialState } from '../reducer'
+import { REDUCER_KEY_LANGUAGE } from 'constants/reducers'
 
-describe('selectLanguage', () => {
+import { selectors, INITIAL_STATE } from '../redux'
+import { LanguageProviderStateRecord } from '../types'
+
+describe('selectLanguageState', () => {
   it('should select the language state', () => {
-    const languageState = {}
+    const languageState = LanguageProviderStateRecord()
     const mockedState: any = {
-      language: languageState,
+      [REDUCER_KEY_LANGUAGE]: languageState,
     }
-    expect(selectLanguage(mockedState)).toEqual(languageState)
+    expect(selectors.selectLanguageState(mockedState)).toEqual(languageState)
   })
 
   it('should select the initial state when state is missing', () => {
     const mockedState: any = {}
-    expect(selectLanguage(mockedState)).toEqual(initialState)
+    expect(selectors.selectLanguageState(mockedState)).toEqual(INITIAL_STATE)
   })
 })

@@ -1,4 +1,4 @@
-import { selectHome, makeSelectUsername } from '../selectors'
+import { selectors } from '../redux'
 
 describe('selectHome', () => {
   it('should select the home state', () => {
@@ -8,12 +8,12 @@ describe('selectHome', () => {
     const mockedState: any = {
       home: homeState,
     }
-    expect(selectHome(mockedState)).toEqual(homeState)
+    expect(selectors.selectHome(mockedState)).toEqual(homeState)
   })
 })
 
-describe('makeSelectUsername', () => {
-  const usernameSelector = makeSelectUsername()
+describe('getUsername', () => {
+  const usernameSelector = selectors.getUsername()
   it('should select the username', () => {
     const username = 'mxstbr'
     const mockedState: any = {

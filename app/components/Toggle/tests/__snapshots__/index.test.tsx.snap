@@ -2,17 +2,17 @@
 
 exports[`<Toggle /> should contain default text 1`] = `
 <select
-  class="sc-bdnxRM cSLOyX"
+  class="sc-bdfBQB igqybA"
 >
   <option
     value="en"
   >
-    someContent
+    default EN message
   </option>
   <option
     value="de"
   >
-    someOtherContent
+    default DE message
   </option>
 </select>
 `;

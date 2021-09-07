@@ -3,6 +3,7 @@
  */
 
 import 'whatwg-fetch'
+
 import request from '../request'
 
 declare let window: { fetch: jest.Mock }
@@ -30,7 +31,7 @@ describe('request', () => {
       request('/thisurliscorrect')
         .catch(done)
         .then((json) => {
-          expect(json.hello).toBe('world')
+          expect((json as any).hello).toBe('world')
           done()
         })
     })

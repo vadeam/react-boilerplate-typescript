@@ -5,52 +5,43 @@
  */
 
 import React from 'react'
+import { FormattedNumber } from 'react-intl'
 import { useSelector } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
-import { FormattedNumber } from 'react-intl'
 
-import { makeSelectCurrentUser } from 'containers/App/selectors'
 import ListItem from 'components/ListItem'
-import IssueIcon from './IssueIcon'
-import IssueLink from './IssueLink'
-import RepoLink from './RepoLink'
-import Wrapper from './Wrapper'
+import { selectors } from 'containers/HomePage/redux'
+
+import { IssueIconStyled, IssueLinkStyled, RepoLinkStyled, WrapperStyled } from './styled'
 import { Repo } from './types'
 
-interface OwnProps {
-  item: Repo
-}
-
-interface DispatchProps {}
-
+type OwnProps = { item: Repo }
+type DispatchProps = {}
 type Props = DispatchProps & OwnProps
+
 const stateSelector = createStructuredSelector({
-  currentUser: makeSelectCurrentUser(),
+  currentUser: selectors.getUsername(),
 })
 
 export default function RepoListItem({ item }: Props) {
   const { currentUser } = useSelector(stateSelector)
   let nameprefix = ''
 
-  // If the repository is owned by a different person than we got the data for
-  // it's a fork and we should show the name of the owner
   if (item.owner.login !== currentUser) {
     nameprefix = `${item.owner.login}/`
   }
 
-  // Put together the content of the repository
   const content = (
-    <Wrapper>
-      <RepoLink href={item.html_url} target="_blank">
+    <WrapperStyled>
+      <RepoLinkStyled href={item.html_url} target="_blank">
         {nameprefix + item.name}
-      </RepoLink>
-      <IssueLink href={`${item.html_url}/issues`} target="_blank">
-        <IssueIcon />
+      </RepoLinkStyled>
+      <IssueLinkStyled href={`${item.html_url}/issues`} target="_blank">
+        <IssueIconStyled />
         <FormattedNumber value={item.open_issues_count} />
-      </IssueLink>
-    </Wrapper>
+      </IssueLinkStyled>
+    </WrapperStyled>
   )
 
-  // Render the content into a list item
   return <ListItem key={`repo-list-item-${item.full_name}`} item={content} />
 }

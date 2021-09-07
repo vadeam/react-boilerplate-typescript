@@ -2,23 +2,25 @@
  * Test the repo list item
  */
 
-import React from 'react'
 import { getByText, render } from '@testing-library/react'
+import React from 'react'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
 
-import RepoListItem from '../index'
+import { REDUCER_KEY_APP } from '../../../constants/reducers'
 import configureStore from '../../../configureStore'
 import history from '../../../utils/history'
+import RepoListItem from '../index'
+import { DEFAULT_LOCALE } from '../../../constants/locales'
 
 const renderComponent = (item, currentUser) => {
   const initialState = {
-    global: {
+    [REDUCER_KEY_APP]: {
       currentUser,
       error: false,
-      loading: false,
+      isFetching: false,
       userData: {
-        repos: false,
+        repos: [],
       },
     },
   }
@@ -26,7 +28,7 @@ const renderComponent = (item, currentUser) => {
 
   return render(
     <Provider store={store}>
-      <IntlProvider locale="en">
+      <IntlProvider locale={DEFAULT_LOCALE}>
         <RepoListItem item={item} />
       </IntlProvider>
     </Provider>,
@@ -39,7 +41,6 @@ const forkUser = 'julienben'
 describe('<RepoListItem />', () => {
   let item
 
-  // Before each test reset the item data for safety
   beforeEach(() => {
     item = {
       owner: {

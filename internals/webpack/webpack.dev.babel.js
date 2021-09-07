@@ -3,12 +3,11 @@
  */
 
 const path = require('path')
+
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CircularDependencyPlugin = require('circular-dependency-plugin')
-
 const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default
-
 const styledComponentsTransformer = createStyledComponentsTransformer()
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin')
 
@@ -31,8 +30,12 @@ module.exports = require('./webpack.base.babel')({
   optimization: {
     splitChunks: {
       chunks: 'all',
+      maxAsyncRequests: 30,
       maxInitialRequests: 10,
+      maxAsyncSize: 10,
+      minRemainingSize: 0,
       minSize: 0,
+      minChunks: 1,
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
@@ -40,6 +43,16 @@ module.exports = require('./webpack.base.babel')({
             const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
             return `npm.${packageName.replace('@', '')}`
           },
+        },
+        default: {
+          minChunks: 1,
+          priority: -20,
+        },
+        json: {
+          type: 'json',
+          // test: /\.json/,
+          minChunks: 1,
+          priority: -10,
         },
       },
     },
@@ -69,6 +82,7 @@ module.exports = require('./webpack.base.babel')({
         getCustomTransformers: () => ({
           before: [styledComponentsTransformer],
         }),
+        happyPackMode: true,
       },
     },
   ],

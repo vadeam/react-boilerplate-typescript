@@ -1,32 +1,28 @@
-/*
- *
+/**
  * LanguageToggle
- *
  */
 
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { createSelector } from 'reselect'
-import { useSelector, useDispatch } from 'react-redux'
 
 import Toggle from 'components/Toggle'
-import Wrapper from './Wrapper'
-import messages from './messages'
-import { appLocales } from '../../locales'
-import { changeLocale } from '../LanguageProvider/actions'
-import { makeSelectLocale } from '../LanguageProvider/selectors'
+import { appLocales } from 'constants/locales'
+import { actions, selectors } from 'containers/LanguageProvider/redux'
 
-const stateSelector = createSelector(makeSelectLocale(), (locale) => ({
-  locale,
-}))
+import messages from './messages'
+import { WrapperStyled } from './styled'
+
+const stateSelector = createSelector(selectors.makeSelectLocale(), (locale) => locale)
 
 export default function LocaleToggle() {
-  const { locale } = useSelector(stateSelector)
+  const locale = useSelector(stateSelector)
   const dispatch = useDispatch()
+  const onLocaleToggle = (evt) => dispatch(actions.changeLocale(evt.target.value))
 
-  const onLocaleToggle = (evt) => dispatch(changeLocale(evt.target.value))
   return (
-    <Wrapper>
+    <WrapperStyled>
       <Toggle value={locale} values={appLocales} messages={messages} onToggle={onLocaleToggle} />
-    </Wrapper>
+    </WrapperStyled>
   )
 }

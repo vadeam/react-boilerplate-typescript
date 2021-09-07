@@ -1,12 +1,6 @@
-<img  src="https://user-images.githubusercontent.com/3495307/46663063-ca6df600-cbc5-11e8-8a77-d26ab7857f13.png"  alt="react boilerplate typescript banner"  align="center"  />
-
-<br  />
-
-<div  align="center"><strong>Start your next react project in seconds</strong></div>
-
-<div  align="center">A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices</div>
-
-<br  />
+<br />
+<div  align="center"><strong>React Boilerplate TypeScript</strong></div>
+<br />
 
 <div  align="center">
 
@@ -80,13 +74,7 @@
 
 <div  align="center">
 
-<sub>Created by <a  href="https://twitter.com/mxstbr">Max Stoiber</a> and maintained with ❤️ by an amazing <a  href="https://github.com/orgs/react-boilerplate/people">team of developers</a>.</sub>
-
 </div>
-
-This is the **TYPESCRIPT** implementation of the original [**react-boilerplate**](https://github.com/react-boilerplate/react-boilerplate) with extra features and powers of `Typescript`
-
-> ⚠️ Please refer to the [react-boilerplate](https://github.com/react-boilerplate/react-boilerplate) for the details and the documentation
 
 ---
 

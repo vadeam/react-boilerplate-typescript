@@ -1,82 +1,57 @@
-/*
+/**
  * FeaturePage
- *
  * List all the features
  */
 import * as React from 'react'
 import { Helmet } from 'react-helmet-async'
-import { FormattedMessage } from 'react-intl'
+import { useIntl } from 'react-intl'
 
 import H1 from 'components/H1'
-import messages from './messages'
-import List from './List'
-import ListItem from './ListItem'
-import ListItemTitle from './ListItemTitle'
 
-export default function FeaturePage() {
+import { ListStyled, ListItemStyled, ListItemTitleStyled } from './styled'
+import messages from './messages'
+
+const FeaturePage = () => {
+  const { formatMessage } = useIntl()
   return (
     <div>
       <Helmet>
-        <title>Feature Page</title>
-        <meta name="description" content="Feature page of React.js Boilerplate application" />
+        <title>{formatMessage({ ...messages.title })}</title>
+        <meta name="description" content="Feature page of React Boilerplate TypeScript application" />
       </Helmet>
-      <H1>
-        <FormattedMessage {...messages.header} />
-      </H1>
-      <List>
-        <ListItem>
-          <ListItemTitle>
-            <FormattedMessage {...messages.scaffoldingHeader} />
-          </ListItemTitle>
-          <p>
-            <FormattedMessage {...messages.scaffoldingMessage} />
-          </p>
-        </ListItem>
+      <H1>{formatMessage({ ...messages.header })}</H1>
+      <ListStyled>
+        <ListItemStyled>
+          <ListItemTitleStyled>{formatMessage({ ...messages.scaffoldingHeader })}</ListItemTitleStyled>
+          <p> {formatMessage({ ...messages.scaffoldingMessage })}</p>
+        </ListItemStyled>
 
-        <ListItem>
-          <ListItemTitle>
-            <FormattedMessage {...messages.feedbackHeader} />
-          </ListItemTitle>
-          <p>
-            <FormattedMessage {...messages.feedbackMessage} />
-          </p>
-        </ListItem>
-        <ListItem>
-          <ListItemTitle>
-            <FormattedMessage {...messages.feedbackHeader} />
-          </ListItemTitle>
-          <p>
-            <FormattedMessage {...messages.feedbackMessage} />
-          </p>
-        </ListItem>
+        <ListItemStyled>
+          <ListItemTitleStyled>{formatMessage({ ...messages.feedbackHeader })}</ListItemTitleStyled>
+          <p>{formatMessage({ ...messages.feedbackMessage })}</p>
+        </ListItemStyled>
+        <ListItemStyled>
+          <ListItemTitleStyled>{formatMessage({ ...messages.feedbackHeader })}</ListItemTitleStyled>
+          <p>{formatMessage({ ...messages.feedbackMessage })}</p>
+        </ListItemStyled>
 
-        <ListItem>
-          <ListItemTitle>
-            <FormattedMessage {...messages.routingHeader} />
-          </ListItemTitle>
-          <p>
-            <FormattedMessage {...messages.routingMessage} />
-          </p>
-        </ListItem>
+        <ListItemStyled>
+          <ListItemTitleStyled>{formatMessage({ ...messages.routingHeader })}</ListItemTitleStyled>
+          <p>{formatMessage({ ...messages.routingMessage })}</p>
+        </ListItemStyled>
 
-        <ListItem>
-          <ListItemTitle>
-            <FormattedMessage {...messages.networkHeader} />
-          </ListItemTitle>
-          <p>
-            <FormattedMessage {...messages.networkMessage} />
-          </p>
-        </ListItem>
+        <ListItemStyled>
+          <ListItemTitleStyled>{formatMessage({ ...messages.networkHeader })}</ListItemTitleStyled>
+          <p>{formatMessage({ ...messages.networkMessage })}</p>
+        </ListItemStyled>
 
-        <ListItem>
-          <ListItemTitle>
-            <FormattedMessage {...messages.intlHeader} />
-          </ListItemTitle>
-          <p>
-            <FormattedMessage {...messages.intlMessage} />
-          </p>
-        </ListItem>
-      </List>
+        <ListItemStyled>
+          <ListItemTitleStyled>{formatMessage({ ...messages.intlHeader })}</ListItemTitleStyled>
+          <p>{formatMessage({ ...messages.intlMessage })}</p>
+        </ListItemStyled>
+      </ListStyled>
     </div>
   )
 }
+
+export default FeaturePage

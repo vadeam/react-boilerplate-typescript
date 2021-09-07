@@ -5,7 +5,7 @@ const prettierOptions = JSON.parse(fs.readFileSync(path.resolve(__dirname, '.pre
 
 module.exports = {
   parser: '@typescript-eslint/parser',
-  extends: ['airbnb-typescript', 'prettier', 'prettier/react', 'prettier/@typescript-eslint'],
+  extends: ['airbnb-typescript', 'prettier'],
   plugins: ['prettier', 'redux-saga', 'react', 'react-hooks', 'jsx-a11y', '@typescript-eslint'],
   env: {
     jest: true,
@@ -24,11 +24,11 @@ module.exports = {
   rules: {
     'jsx-no-lambda': 0,
     semi: [2, 'never'],
-    '@typescript-eslint/interface-name-prefix': 0,
-    '@typescript-eslint/no-empty-interface': 0,
+    'interface-name-prefix': 0,
+    'no-empty-interface': 0,
     'object-shorthand': [0, 'never'],
     quotes: [2, 'single'],
-    '@typescript-eslint/no-var-requires': 0,
+    'no-var-requires': 0,
     'member-ordering': 0,
     'object-literal-sort-keys': 0,
     'no-shadowed-variable': 0,
@@ -40,16 +40,28 @@ module.exports = {
     'no-implicit-dependencies': 0,
     'no-submodule-imports': 0,
     'no-case-declarations': 1,
-    '@typescript-eslint/no-empty-function': 0,
-    '@typescript-eslint/ban-ts-ignore': 1,
-    '@typescript-eslint/indent': 0,
+    'no-empty-function': 0,
     'jsx-alignment': 0,
     'jsx-wrap-multiline': 0,
-    '@typescript-eslint/camelcase': 0,
+    camelcase: 0,
     'prettier/prettier': ['error', prettierOptions],
     'arrow-body-style': [2, 'as-needed'],
     'class-methods-use-this': 0,
-    'import/order': 0,
+    'import/order': [
+      'error',
+      {
+        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object', 'type'],
+        pathGroups: [
+          {
+            pattern: '@app/**',
+            group: 'external',
+            position: 'after',
+          },
+        ],
+        'newlines-between': 'always',
+        warnOnUnassignedImports: true,
+      },
+    ],
     'import/imports-first': 0,
     'import/newline-after-import': 0,
     'import/no-dynamic-require': 0,
@@ -90,6 +102,7 @@ module.exports = {
     'prefer-template': 2,
     'react/destructuring-assignment': 0,
     'react-hooks/rules-of-hooks': 'error',
+    "react-hooks/exhaustive-deps": "warn",
     'react/jsx-closing-tag-location': 0,
     'react/forbid-prop-types': 0,
     'react/jsx-first-prop-new-line': [2, 'multiline'],
@@ -105,6 +118,7 @@ module.exports = {
     'redux-saga/no-yield-in-race': 2,
     'redux-saga/yield-effects': 2,
     'require-yield': 0,
+    '@typescript-eslint/lines-between-class-members': 0,
   },
   settings: {
     'import/parsers': {

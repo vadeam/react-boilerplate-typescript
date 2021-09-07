@@ -1,10 +1,11 @@
 // Important modules this config uses
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const WebpackPwaManifest = require('webpack-pwa-manifest')
+
 const OfflinePlugin = require('@lcdp/offline-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+const WebpackPwaManifest = require('webpack-pwa-manifest')
 
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
@@ -63,6 +64,15 @@ module.exports = require('./webpack.base.babel')({
             const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
             return `npm.${packageName.replace('@', '')}`
           },
+        },
+        default: {
+          minChunks: 1,
+          priority: -20,
+        },
+        json: {
+          test: /\.json/,
+          minChunks: 1,
+          priority: -10,
         },
       },
     },

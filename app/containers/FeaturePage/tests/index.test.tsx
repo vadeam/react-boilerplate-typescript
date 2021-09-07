@@ -1,7 +1,9 @@
-import React from 'react'
 import { render } from '@testing-library/react'
-import { IntlProvider } from 'react-intl'
+import React from 'react'
 import { HelmetProvider } from 'react-helmet-async'
+import { IntlProvider } from 'react-intl'
+
+import { LOCALE_EN } from 'constants/locales'
 
 import FeaturePage from '../index'
 
@@ -10,7 +12,7 @@ describe('<FeaturePage />', () => {
     const {
       container: { firstChild },
     } = render(
-      <IntlProvider locale="en">
+      <IntlProvider locale={LOCALE_EN}>
         <HelmetProvider>
           <FeaturePage />
         </HelmetProvider>

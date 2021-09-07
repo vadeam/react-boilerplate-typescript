@@ -7,7 +7,7 @@
     "preserveConstEnums": true,
     "baseUrl": "./app",
     "jsx": "react", // process JSX
-    "lib": ["dom", "es5", "es6", "es7", "es2017"],
+    "lib": ["dom", "es5", "es6", "es7", "es2017", "es2019"],
     "allowSyntheticDefaultImports": true, // no errors with commonjs modules interop
     "esModuleInterop": true,
     "allowJs": true, // include js files
@@ -25,7 +25,12 @@
     "strictFunctionTypes": false,
     "pretty": true,
     "removeComments": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "typeRoots": ["app/types", "node_modules/@types", "node_modules/@testing-library"],
+    "types": ["node", "jest", "webpack-env", "@testing-library/jest-dom"],
+    "outDir": "./build"
   },
   "include": ["app/**/*", "internals/templates/**/*"],
   "exclude": ["node_modules"]

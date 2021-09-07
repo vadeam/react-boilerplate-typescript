@@ -1,11 +1,12 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
+import renderer from 'react-test-renderer'
 
-import Footer from '../index'
+import { LOCALE_EN } from '../../../constants/locales'
 import configureStore from '../../../configureStore'
 import history from '../../../utils/history'
+import Footer from '../index'
 
 describe('<Footer />', () => {
   let store
@@ -18,7 +19,7 @@ describe('<Footer />', () => {
     const renderedComponent = renderer
       .create(
         <Provider store={store}>
-          <IntlProvider locale="en">
+          <IntlProvider locale={LOCALE_EN}>
             <Footer />
           </IntlProvider>
         </Provider>,

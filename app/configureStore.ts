@@ -2,15 +2,14 @@
  * Create the store with dynamic reducers
  */
 
-import { applyMiddleware, createStore, compose } from 'redux'
 import { routerMiddleware } from 'connected-react-router'
+import { History } from 'history'
+import { applyMiddleware, createStore, compose } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import { createInjectorsEnhancer, forceReducerReload } from 'redux-injectors'
 import createSagaMiddleware from 'redux-saga'
-import { History } from 'history'
-import { composeWithDevTools } from 'redux-devtools-extension'
 
 import createReducer from './reducers'
-import { InjectedStore, ApplicationRootState } from 'types'
 
 export default function configureStore(initialState: ApplicationRootState | {} = {}, history: History) {
   const reduxSagaMonitorOptions = {}

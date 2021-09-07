@@ -1,23 +1,29 @@
+import { render } from '@testing-library/react'
 import React from 'react'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
-import { render } from '@testing-library/react'
 
-import ReposList from '../index'
+import { REDUCER_KEY_APP } from '../../../constants/reducers'
 import configureStore from '../../../configureStore'
-import history from '../../../utils/history'
 import { Repo } from '../../../containers/RepoListItem/types'
+import history from '../../../utils/history'
+import ReposList from '../index'
+import { DEFAULT_LOCALE } from '../../../constants/locales'
 
 describe('<ReposList />', () => {
   it('should render the loading indicator when its loading', () => {
-    const { container } = render(<ReposList loading />)
+    const { container } = render(
+      <IntlProvider locale={DEFAULT_LOCALE}>
+        <ReposList isFetching />
+      </IntlProvider>,
+    )
     expect(container.firstChild).toMatchSnapshot()
   })
 
   it('should render an error if loading failed', () => {
     const { queryByText } = render(
-      <IntlProvider locale="en">
-        <ReposList loading={false} error={{ message: 'Loading failed!' }} />
+      <IntlProvider locale={DEFAULT_LOCALE}>
+        <ReposList isFetching={false} error={{ message: 'Loading failed!' }} />
       </IntlProvider>,
     )
     expect(queryByText(/Something went wrong/)).toBeInTheDocument()
@@ -25,12 +31,12 @@ describe('<ReposList />', () => {
 
   it('should render the repositories if loading was successful', () => {
     const initialState = {
-      global: {
+      [REDUCER_KEY_APP]: {
         currentUser: 'mxstbr',
         error: false,
-        loading: false,
+        isFetching: false,
         userData: {
-          repos: false,
+          repos: [],
         },
       },
     }
@@ -48,8 +54,8 @@ describe('<ReposList />', () => {
     ] as Repo[]
     const { container } = render(
       <Provider store={store}>
-        <IntlProvider locale="en">
-          <ReposList repos={repos} error={false} loading={false} />
+        <IntlProvider locale={DEFAULT_LOCALE}>
+          <ReposList repos={repos} error={false} isFetching={false} />
         </IntlProvider>
       </Provider>,
     )
@@ -58,8 +64,13 @@ describe('<ReposList />', () => {
   })
 
   it('should not render anything if nothing interesting is provided', () => {
-    const { container } = render(<ReposList repos={undefined} error={false} loading={false} />)
+    const { container, queryByText } = render(
+      <IntlProvider locale={DEFAULT_LOCALE}>
+        <ReposList repos={undefined} error={false} isFetching={false} />
+      </IntlProvider>,
+    )
 
-    expect(container).toBeEmpty()
+    expect(container).not.toBeEmptyDOMElement()
+    expect(queryByText(/Type user name in the input above and press Enter/)).toBeInTheDocument()
   })
 })

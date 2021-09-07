@@ -1,8 +1,8 @@
-import React from 'react'
 import { render } from '@testing-library/react'
+import React from 'react'
 
-import List from '../index'
 import { Repo } from '../../../containers/RepoListItem/types'
+import List from '../index'
 
 describe('<List />', () => {
   it('should render the passed component if no items are passed', () => {

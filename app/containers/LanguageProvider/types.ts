@@ -1,18 +1,40 @@
-import { ActionType } from 'typesafe-actions'
-import * as actions from './actions'
+import { Record } from 'immutable'
 
-/* --- STATE --- */
+import { LOCALE_EN, LOCALE_DE, DEFAULT_LOCALE } from 'constants/locales'
 
-interface LanguageProviderState {
-  readonly locale: string
+declare global {
+  type Locales = typeof LOCALE_EN | typeof LOCALE_DE
 }
 
-/* --- ACTIONS --- */
-type AppActions = ActionType<typeof actions>
+export type LocalMessages = { [p: string]: string }
 
-/* --- EXPORTS --- */
+export interface LanguageActionTypes {
+  CHANGE_LOCALE: string
+  SET_LOCALE_MESSAGES: string
+}
 
-type ContainerState = LanguageProviderState
-type ContainerActions = AppActions
+export interface ChangeLocaleAction extends Action<LanguageActionTypes> {
+  readonly locale: Locales
+}
 
-export { ContainerState, ContainerActions }
+export interface SetLocaleMessagesAction extends Action<LanguageActionTypes> {
+  readonly messages: LocalMessages
+}
+
+export interface LanguageActionCreators {
+  changeLocale: (locale: Locales) => ChangeLocaleAction
+  setLocaleMessages: (messages: LocalMessages) => SetLocaleMessagesAction
+}
+
+export interface LanguageProviderState extends InheritedReducerState {
+  readonly locale: Locales
+  readonly messages: LocalMessages
+}
+
+export const LanguageProviderStateRecord = Record<LanguageProviderState>(
+  {
+    locale: DEFAULT_LOCALE,
+    messages: {},
+  },
+  'LanguageProviderStateRecord',
+)

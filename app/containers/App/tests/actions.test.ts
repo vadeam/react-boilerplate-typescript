@@ -1,41 +1,33 @@
-import { action } from 'typesafe-actions'
-import ActionTypes from '../constants'
-
-import { loadRepos, reposLoaded, repoLoadingError } from '../actions'
 import { Repo } from '../../RepoListItem/types'
+import { types, actions } from '../redux'
 
 describe('App Actions', () => {
   describe('loadRepos', () => {
     it('should return the correct type', () => {
-      const expectedResult = {
-        type: ActionTypes.LOAD_REPOS,
-      }
-
-      expect(loadRepos()).toEqual(expectedResult)
+      expect(actions.loadRepos()).toEqual({ type: types.LOAD_REPOS })
     })
   })
 
   describe('reposLoaded', () => {
     it('should return the correct type and the passed repos', () => {
-      const fixture = [{}] as Repo[]
+      const repos = [{}] as Repo[]
       const username = 'test'
-      const expectedResult = action(ActionTypes.LOAD_REPOS_SUCCESS, {
-        repos: fixture,
+      const expectedResult = {
+        repos,
         username,
-      })
+        type: types.REPOS_LOADED,
+      }
 
-      expect(reposLoaded(fixture, username)).toEqual(expectedResult)
+      expect(actions.reposLoaded(repos, username)).toEqual(expectedResult)
     })
   })
 
   describe('repoLoadingError', () => {
     it('should return the correct type and the error', () => {
-      const fixture = {
-        msg: 'Something went wrong!',
-      }
-      const expectedResult = action(ActionTypes.LOAD_REPOS_ERROR, fixture)
+      const error = { msg: 'Something went wrong!' }
+      const expectedResult = { error, type: types.REPO_LOADING_ERROR }
 
-      expect(repoLoadingError(fixture)).toEqual(expectedResult)
+      expect(actions.repoLoadingError(error)).toEqual(expectedResult)
     })
   })
 })

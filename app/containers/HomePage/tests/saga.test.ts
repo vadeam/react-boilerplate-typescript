@@ -4,13 +4,16 @@
 
 import { put, takeLatest } from 'redux-saga/effects'
 
-import ActionTypes from 'containers/App/constants'
-import { reposLoaded, repoLoadingError } from 'containers/App/actions'
+import { types as ActionTypes, actions } from 'containers/App/redux'
 
-import githubData, { getRepos } from '../saga'
 import { Repo } from '../../RepoListItem/types'
+import githubData, { getRepos } from '../saga'
 
 const username = 'mxstbr'
+
+jest.mock('utils/fetcher', () => ({
+  getUserGithubRepos: jest.fn(),
+}))
 
 describe('getRepos Saga', () => {
   let getReposGenerator
@@ -37,13 +40,13 @@ describe('getRepos Saga', () => {
       },
     ] as Repo[]
     const putDescriptor = getReposGenerator.next(response).value
-    expect(putDescriptor).toEqual(put(reposLoaded(response, username)))
+    expect(putDescriptor).toEqual(put(actions.reposLoaded(response, username)))
   })
 
   it('should call the repoLoadingError action if the response errors', () => {
     const response = new Error('Some error')
     const putDescriptor = getReposGenerator.throw(response).value
-    expect(putDescriptor).toEqual(put(repoLoadingError(response)))
+    expect(putDescriptor).toEqual(put(actions.repoLoadingError(response)))
   })
 })
 

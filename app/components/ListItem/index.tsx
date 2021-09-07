@@ -3,12 +3,12 @@ import * as React from 'react'
 import Item from './Item'
 import Wrapper from './Wrapper'
 
-function ListItem(props) {
+type ListItemProps = { item: any; className?: string }
+
+export default function ListItem(props: ListItemProps) {
   return (
-    <Wrapper>
+    <Wrapper className={props.className}>
       <Item>{props.item}</Item>
     </Wrapper>
   )
 }
-
-export default ListItem

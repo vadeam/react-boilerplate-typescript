@@ -1,19 +1,19 @@
-import React from 'react'
 import { render } from '@testing-library/react'
-import { FormattedMessage, defineMessages } from 'react-intl'
+import React from 'react'
+import { defineMessages, FormattedMessage } from 'react-intl'
 import { Provider } from 'react-redux'
 
-import LanguageProvider from '../index'
-import configureStore from '../../../configureStore'
+import { LOCALE_EN } from 'constants/locales'
 
-import { translationMessages } from '../../../i18n'
+import configureStore from '../../../configureStore'
 import history from '../../../utils/history'
+import LanguageProvider from '../index'
 
 const messages = defineMessages({
   someMessage: {
     id: 'some.id',
     defaultMessage: 'This is some default message',
-    en: 'This is some en message',
+    [LOCALE_EN]: `This is some '${LOCALE_EN}' message`,
   },
 })
 
@@ -29,7 +29,7 @@ describe('<LanguageProvider />', () => {
     const children = <h1>{text}</h1>
     const { queryByText } = render(
       <Provider store={store}>
-        <LanguageProvider messages={messages}>{children}</LanguageProvider>
+        <LanguageProvider>{children}</LanguageProvider>
       </Provider>,
     )
     expect(queryByText(text)).toBeInTheDocument()
@@ -38,7 +38,7 @@ describe('<LanguageProvider />', () => {
   it('should render the default language messages', () => {
     const { queryByText } = render(
       <Provider store={store}>
-        <LanguageProvider messages={translationMessages}>
+        <LanguageProvider>
           <FormattedMessage {...messages.someMessage} />
         </LanguageProvider>
       </Provider>,

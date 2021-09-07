@@ -1,9 +1,11 @@
 import * as React from 'react'
+
 import styled, { keyframes } from 'styles/styled-components'
 
 interface Props {
   rotate?: number
   delay?: number
+  // eslint-disable-next-line react/no-unused-prop-types
   id?: string
 }
 

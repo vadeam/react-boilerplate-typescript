@@ -4,9 +4,14 @@
 node_modules/
 stats.json
 
+# Environment
+.env
+.env.*
+
 # Cruft
 .DS_Store
 *.log
 .idea/
+.vscode/
 .awcache/
 .tmp/

@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RepoListItem /> should render a ListItem 1`] = `
+<li
+  class="sc-gsTEea bNKyBL"
+>
+  <div
+    class="sc-bdfBQB hNUSPl"
+  >
+    <div
+      class="sc-dlfnuX eXHPyD currency-rate"
+    >
+      USD
+      :  
+      1.2345
+    </div>
+  </div>
+</li>
+`;

@@ -1,26 +1,49 @@
-import { ActionType } from 'typesafe-actions'
-import * as actions from './actions'
-import { Repo } from '../RepoListItem/types'
+import { Record } from 'immutable'
 
-/* --- STATE --- */
+import { Repo } from 'containers/RepoListItem/types'
 
-interface AppState {
-  readonly loading: boolean
-  readonly error?: object | boolean
+export interface AppActionTypes {
+  LOAD_REPOS: string
+  REPOS_LOADED: string
+  REPO_LOADING_ERROR: string
+}
+
+export interface LoadReposAction extends Action<AppActionTypes> {}
+
+export interface LoadReposSuccessAction extends Action<AppActionTypes> {
+  readonly repos: Nullable<Repo[]>
+  readonly username: string
+}
+
+export interface LoadReposErrorAction<T = object> extends Action<AppActionTypes> {
+  readonly error: T
+}
+
+export type AppActions = LoadReposAction | LoadReposSuccessAction | LoadReposErrorAction
+
+export interface AppActionCreators {
+  loadRepos: () => LoadReposAction
+  reposLoaded: (repos: Nullable<Repo[]>, username: string) => LoadReposSuccessAction
+  repoLoadingError: (error: object) => LoadReposErrorAction
+}
+
+export interface UserData {
+  readonly repos: Nullable<Repo[]>
+}
+
+export const UserDataRecord = Record<UserData>({ repos: null }, 'UserDataRecord')
+
+export interface AppState extends InheritedReducerState {
   readonly currentUser: string
   readonly userData: UserData
 }
 
-interface UserData {
-  readonly repos?: Repo[]
-}
-
-/* --- ACTIONS --- */
-type AppActions = ActionType<typeof actions>
-
-/* --- EXPORTS --- */
-
-type ContainerState = AppState
-type ContainerActions = AppActions
-
-export { ContainerState, ContainerActions, UserData }
+export const AppStateRecord = Record<AppState>(
+  {
+    isFetching: false,
+    currentUser: '',
+    userData: UserDataRecord(),
+    error: null,
+  },
+  'AppStateRecord',
+)

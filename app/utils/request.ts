@@ -1,11 +1,17 @@
 export class ResponseError extends Error {
-  public response: Response
+  public readonly response: Response
+  public readonly status: number
+  public readonly statusText: object | string
 
   constructor(response: Response) {
     super(response.statusText)
+
     this.response = response
+    this.status = response.status
+    this.statusText = response.statusText
   }
 }
+
 /**
  * Parses the JSON returned by a network request
  *
@@ -21,23 +27,6 @@ function parseJSON(response: Response) {
 }
 
 /**
- * Checks if a network request came back fine, and throws an error if not
- *
- * @param  {object} response   A response from a network request
- *
- * @return {object|undefined} Returns either the response, or throws an error
- */
-function checkStatus(response: Response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response
-  }
-
-  const error = new ResponseError(response)
-  error.response = response
-  throw error
-}
-
-/**
  * Requests a URL, returning a promise
  *
  * @param  {string} url       The URL we want to request
@@ -45,8 +34,12 @@ function checkStatus(response: Response) {
  *
  * @return {object}           The response data
  */
-export default async function request(url: string, options?: RequestInit): Promise<{} | { err: ResponseError }> {
-  const fetchResponse = await fetch(url, options)
-  const response = await checkStatus(fetchResponse)
+export default async function request<T>(url: string, options?: RequestInit): Promise<T> {
+  const response = await fetch(url, options)
+
+  if (!response.ok) {
+    throw new ResponseError(response)
+  }
+
   return parseJSON(response)
 }

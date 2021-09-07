@@ -2,59 +2,59 @@
 
 exports[`<ReposList /> should render the loading indicator when its loading 1`] = `
 <div
-  class="sc-gtsrHT cPrvMH"
+  class="sc-gsTEea kgaQvI"
 >
   <ul
-    class="sc-bdnxRM jzejmN"
+    class="sc-bdfBQB NAKmS"
   >
     <div
-      class="sc-jSFjdj kxYqkO"
+      class="sc-jSgvzq gSmHaz"
     >
       <div
-        class="sc-eCApnc jzdQje"
+        class="sc-eCstlR jtWrBq"
       />
       <div
-        class="sc-eCApnc gPsbou"
+        class="sc-eCstlR PWbwq"
         rotate="30"
       />
       <div
-        class="sc-eCApnc eVRtZn"
+        class="sc-eCstlR hoFJtX"
         rotate="60"
       />
       <div
-        class="sc-eCApnc jBGUKg"
+        class="sc-eCstlR eUfVGI"
         rotate="90"
       />
       <div
-        class="sc-eCApnc bcQaaS"
+        class="sc-eCstlR jIaCJS"
         rotate="120"
       />
       <div
-        class="sc-eCApnc bgWsFF"
+        class="sc-eCstlR kQhMvl"
         rotate="150"
       />
       <div
-        class="sc-eCApnc fxpZIo"
+        class="sc-eCstlR fbbTzE"
         rotate="180"
       />
       <div
-        class="sc-eCApnc XYyCC"
+        class="sc-eCstlR eVrjPe"
         rotate="210"
       />
       <div
-        class="sc-eCApnc lbTeUr"
+        class="sc-eCstlR duKXHj"
         rotate="240"
       />
       <div
-        class="sc-eCApnc dRyJFo"
+        class="sc-eCstlR bjuSaU"
         rotate="270"
       />
       <div
-        class="sc-eCApnc gVOIOS"
+        class="sc-eCstlR iayRcW"
         rotate="300"
       />
       <div
-        class="sc-eCApnc iYcuXB"
+        class="sc-eCstlR kZZIiR"
         rotate="330"
       />
     </div>
@@ -64,34 +64,34 @@ exports[`<ReposList /> should render the loading indicator when its loading 1`] 
 
 exports[`<ReposList /> should render the repositories if loading was successful 1`] = `
 <div
-  class="sc-gtsrHT cPrvMH"
+  class="sc-gsTEea kgaQvI"
 >
   <ul
-    class="sc-bdnxRM jzejmN"
+    class="sc-bdfBQB NAKmS"
   >
     <li
-      class="sc-hKFxyN ibEoFF"
+      class="sc-hKgJUU ggufoM"
     >
       <div
-        class="sc-dlnjwi fKaKZb"
+        class="sc-dlfnuX bBDutN"
       >
         <div
-          class="sc-jrsJWt czIMqN"
+          class="sc-jrAFXE kwQHns"
         >
           <a
-            class="sc-iCoGMd sc-pNWdM kLeFhJ iOqKJG"
+            class="sc-iBPTik sc-pGacB foUfnK gKjSAI"
             href="https://github.com/react-boilerplate/react-boilerplate"
             target="_blank"
           >
-            react-boilerplate
+            mxstbr/react-boilerplate
           </a>
           <a
-            class="sc-iCoGMd sc-fujyAs kLeFhJ kcJtpX"
+            class="sc-iBPTik sc-fubCzh foUfnK ecfGHk"
             href="https://github.com/react-boilerplate/react-boilerplate/issues"
             target="_blank"
           >
             <svg
-              class="sc-gKAaRy emMiVs"
+              class="sc-gKseQn dMiiVX"
               height="1em"
               width="0.875em"
             >
@@ -99,9 +99,7 @@ exports[`<ReposList /> should render the repositories if loading was successful 
                 d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7S10.14 13.7 7 13.7 1.3 11.14 1.3 8s2.56-5.7 5.7-5.7m0-1.3C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7S10.86 1 7 1z m1 3H6v5h2V4z m0 6H6v2h2V10z"
               />
             </svg>
-            <span>
-              20
-            </span>
+            20
           </a>
         </div>
       </div>

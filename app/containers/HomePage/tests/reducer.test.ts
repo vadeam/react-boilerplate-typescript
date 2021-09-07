@@ -1,24 +1,22 @@
-import homeReducer from '../reducer'
-import { changeUsername } from '../actions'
-import { ContainerState } from '../types'
+import { Record } from 'immutable'
+
+import { HomeState, HomeStateRecord } from '../types'
+import { actions, reducer } from '../redux'
 
 describe('homeReducer', () => {
-  let state: ContainerState
+  let state: Record<HomeState>
   beforeEach(() => {
-    state = {
-      username: '',
-    }
+    state = HomeStateRecord()
   })
 
   it('should return the initial state', () => {
-    const expectedResult = state
-    expect(homeReducer(undefined, {} as any)).toEqual(expectedResult)
+    expect(reducer(undefined, {} as any)).toEqual(state)
   })
 
   it('should handle the changeUsername action correctly', () => {
     const fixture = 'mxstbr'
     const expectedResult = { username: fixture }
 
-    expect(homeReducer(state, changeUsername(fixture))).toEqual(expectedResult)
+    expect(reducer(state, actions.changeUsername(fixture)).toJS()).toEqual(expectedResult)
   })
 })

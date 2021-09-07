@@ -1,36 +1,30 @@
-import appReducer from '../reducer'
-import { loadRepos, reposLoaded, repoLoadingError } from '../actions'
-import { ContainerState } from '../types'
-import { Repo } from '../../RepoListItem/types'
+import { Record } from 'immutable'
+
+import { Repo } from 'containers/RepoListItem/types'
+
+import { reducer, actions } from '../redux'
+import { AppState, AppStateRecord } from '../types'
 
 describe('appReducer', () => {
-  let state: ContainerState
+  let state: Record<AppState>
   beforeEach(() => {
-    state = {
-      loading: false,
-      error: false,
-      currentUser: '',
-      userData: {
-        repos: [],
-      },
-    }
+    state = AppStateRecord()
   })
 
   it('should return the initial state', () => {
-    const expectedResult = state
-    expect(appReducer(undefined, {} as any)).toEqual(expectedResult)
+    expect(reducer(undefined, {} as any).toJS()).toEqual(state.toJS())
   })
 
   it('should handle the loadRepos action correctly', () => {
     const expectedResult = {
       currentUser: '',
-      loading: true,
-      error: false,
+      isFetching: true,
+      error: null,
       userData: {
-        repos: [],
+        repos: null,
       },
     }
-    expect(appReducer(state, loadRepos())).toEqual(expectedResult)
+    expect(reducer(state, actions.loadRepos()).toJS()).toEqual(expectedResult)
   })
 
   it('should handle the reposLoaded action correctly', () => {
@@ -42,13 +36,13 @@ describe('appReducer', () => {
     const username = 'test'
     const expectedResult = {
       currentUser: username,
-      loading: false,
+      isFetching: false,
       error: false,
       userData: {
         repos: fixture,
       },
     }
-    expect(appReducer(state, reposLoaded(fixture, username))).toEqual(expectedResult)
+    expect(reducer(state, actions.reposLoaded(fixture, username)).toJS()).toEqual(expectedResult)
   })
 
   it('should handle the repoLoadingError action correctly', () => {
@@ -59,12 +53,12 @@ describe('appReducer', () => {
     const expectedResult = {
       currentUser: '',
       error: fixture,
-      loading: false,
+      isFetching: false,
       userData: {
-        repos: [],
+        repos: null,
       },
     }
 
-    expect(appReducer(state, repoLoadingError(fixture))).toEqual(expectedResult)
+    expect(reducer(state, actions.repoLoadingError(fixture)).toJS()).toEqual(expectedResult)
   })
 })

@@ -4,36 +4,29 @@
  * This is the entry file for the application, only setup and boilerplate
  * code.
  */
-
-import 'react-app-polyfill/ie11'
-import 'react-app-polyfill/stable'
-
-// Import all the third party stuff
 import * as React from 'react'
+import 'react-app-polyfill/ie11'
 import * as ReactDOM from 'react-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
 import FontFaceObserver from 'fontfaceobserver'
-import history from 'utils/history'
 import 'sanitize.css/sanitize.css'
+import 'react-app-polyfill/stable'
 import * as OfflinePluginRuntime from '@lcdp/offline-plugin/runtime'
 
-// Import root app
+import { BrowserStorage } from 'lib/classes/BrowserStorage'
 import App from 'containers/App'
-
-// Import Language Provider
 import LanguageProvider from 'containers/LanguageProvider'
-
-// Load the favicon and the .htaccess file
-import '!file-loader?name=[name].[ext]!./images/favicon.ico'
+import history from 'utils/history'
 import 'file-loader?name=.htaccess!./.htaccess'
-
-import { HelmetProvider } from 'react-helmet-async'
+import { actions as localeActions } from 'containers/LanguageProvider/redux'
+import { appLocales, CUSTOM_LOCALE_STORAGE_KEY, DEFAULT_LOCALE } from 'constants/locales'
 
 import configureStore from './configureStore'
+import { translationMessages } from './i18n'
 
-// Import i18n messages
-import { translationMessages } from 'i18n'
+import '!file-loader?name=[name].[ext]!./images/favicon.ico'
 
 // Observe loading of Open Sans (to remove open sans, remove the <link> tag in
 // the index.html file and this observer)
@@ -49,19 +42,32 @@ const initialState = {}
 const store = configureStore(initialState, history)
 const MOUNT_NODE = document.getElementById('app') as HTMLElement
 
-const ConnectedApp = (props: { messages: any }) => (
-  <Provider store={store}>
-    <LanguageProvider messages={props.messages}>
-      <ConnectedRouter history={history}>
-        <HelmetProvider>
-          <App />
-        </HelmetProvider>
-      </ConnectedRouter>
-    </LanguageProvider>
-  </Provider>
+const ConnectedApp = () => (
+  <React.StrictMode>
+    <Provider store={store}>
+      <LanguageProvider>
+        <ConnectedRouter history={history}>
+          <HelmetProvider>
+            <App />
+          </HelmetProvider>
+        </ConnectedRouter>
+      </LanguageProvider>
+    </Provider>
+  </React.StrictMode>
 )
-const render = (messages: any) => {
-  ReactDOM.render(<ConnectedApp messages={messages} />, MOUNT_NODE)
+
+const render = () => {
+  let locale = (BrowserStorage.getStorage().getItem(CUSTOM_LOCALE_STORAGE_KEY) ?? DEFAULT_LOCALE) as Locales
+
+  if (!appLocales.includes(locale)) {
+    locale = DEFAULT_LOCALE
+  }
+
+  translationMessages(locale).then((messages) => {
+    store.dispatch(localeActions.changeLocale(locale))
+    store.dispatch(localeActions.setLocaleMessages(messages))
+    ReactDOM.render(<ConnectedApp />, MOUNT_NODE)
+  })
 }
 
 if (module.hot) {
@@ -70,7 +76,7 @@ if (module.hot) {
   // have to be constants at compile-time
   module.hot.accept(['./i18n'], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE)
-    render(translationMessages)
+    render()
   })
 }
 
@@ -79,13 +85,14 @@ if (!(window as any).Intl) {
   new Promise((resolve) => {
     resolve(import('intl'))
   })
-    .then(() => Promise.all([import('intl/locale-data/jsonp/en.js'), import('intl/locale-data/jsonp/de.js')]))
-    .then(() => render(translationMessages))
+    // eslint-disable-next-line import/extensions
+    .then(() => import('intl/locale-data/jsonp/en.js'))
+    .then(() => render())
     .catch((err) => {
       throw err
     })
 } else {
-  render(translationMessages)
+  render()
 }
 
 // Install ServiceWorker and AppCache in the end since

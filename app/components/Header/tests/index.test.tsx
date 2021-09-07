@@ -1,12 +1,13 @@
-import React from 'react'
 import { render } from '@testing-library/react'
-import { Provider } from 'react-redux'
-import { IntlProvider } from 'react-intl'
 import { ConnectedRouter } from 'connected-react-router'
 import { createMemoryHistory } from 'history'
+import React from 'react'
+import { IntlProvider } from 'react-intl'
+import { Provider } from 'react-redux'
 
-import Header from '../index'
 import configureStore from '../../../configureStore'
+import Header from '../index'
+import { DEFAULT_LOCALE } from '../../../constants/locales'
 
 describe('<Header />', () => {
   const history = createMemoryHistory()
@@ -15,7 +16,7 @@ describe('<Header />', () => {
   it('should render a div', () => {
     const { container } = render(
       <Provider store={store}>
-        <IntlProvider locale="en">
+        <IntlProvider locale={DEFAULT_LOCALE}>
           <ConnectedRouter history={history}>
             <Header />
           </ConnectedRouter>
